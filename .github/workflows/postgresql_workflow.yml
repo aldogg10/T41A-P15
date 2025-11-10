@@ -42,18 +42,30 @@ jobs:
       run: |
         sleep 10
 
-    - name: Set up database schema and data
+    - name: O1 Create tables
       run: |
         PGPASSWORD=postgres psql -h localhost -U postgres -d test_db -f 01_create_tables.sql
 
     - name: Insert data
       run: |
-        PGPASSWORD=postgres psql -h localhost -U postgres -d test_db -f 02_insert_data.sql      
+        PGPASSWORD=postgres psql -h localhost -U postgres -d test_db -f 02_insert_data.sql     
 
-    - name: Create views
+    - name: Calcular descuento
       run: |
-        PGPASSWORD=postgres psql -h localhost -U postgres -d test_db -f 03_create_views.sql          
-        
-    - name: Run tests
+         PGPASSWORD=postgres psql -h localhost -U postgres -d test_db -f 03_calcular_descuento.sql 
+
+    - name: Validar correo
       run: |
-        pytest
+         PGPASSWORD=postgres psql -h localhost -U postgres -d test_db -f 04_validar_correo.sql
+
+    - name: Devolver stock
+      run: |
+         PGPASSWORD=postgres psql -h localhost -U postgres -d test_db -f 05_devolver_stock.sql 
+         
+    - name: Devolver dia
+      run: |
+         PGPASSWORD=postgres psql -h localhost -U postgres -d test_db -f 06_dia_de_semana.sql
+         
+    - name: Contar empleados
+      run: |
+         PGPASSWORD=postgres psql -h localhost -U postgres -d test_db -f 07_contar_empleados.sql    
